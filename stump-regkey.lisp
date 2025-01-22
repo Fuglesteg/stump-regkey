@@ -1,6 +1,7 @@
 (defpackage :stump-regkey
   (:use :cl :stumpwm)
-  (:export register-keysym))
+  (:export :register-keysym
+           :register-character))
 
 (in-package :stump-regkey)
 
@@ -15,3 +16,6 @@
 (defun register-keysym (keysym)
   (let ((empty-keycode (xlib:keysym->keycodes *display* 0)))
     (change-keyboard-mapping-row (list keysym 0 0 0 0 0 0 0 0 0 0 0 0 0 0) empty-keycode)))
+
+(defun register-character (character)
+  (register-keysym (first (xlib:character->keysyms character))))
